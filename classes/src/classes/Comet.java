@@ -1,12 +1,7 @@
 package classes;
 
-import java.awt.Image;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Random;
-
 import tbs.simpleapp.SimpleApp;
-import util.FileUtil;
 
 public class Comet extends SimpleApp{
 	//import random
