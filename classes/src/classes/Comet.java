@@ -3,17 +3,25 @@ package classes;
 import java.awt.Image;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Random;
 
 import tbs.simpleapp.SimpleApp;
 import util.FileUtil;
 
 public class Comet extends SimpleApp{
-	Image car;
-	double[] xValues = new double[100];
-	double[] yValues = new double[100];
-	double[] dxValues = new double[100];
-	double[] dyValues = new double[100];
-	int numCars = 0;
+	//import random
+	Random random = new Random();
+	
+	//amount of bubbles
+	final int MAX_BUBBLES = 100;
+	//final --> cannot change the value of this var
+	
+	
+	//Single array, each item in the array will be a bubble
+	//a bubble is an item which has the 4 datas in Bubble.java
+	Bubble[] bubbles = new Bubble [MAX_BUBBLES];
+	
+	int numVal = 0;
 	
 	
 	public static void main(String[] args) {
@@ -23,74 +31,71 @@ public class Comet extends SimpleApp{
 	
 	public void main() 
 	{
-		//load sprite
-		Path path = Paths.get("/Users/nguyenle/Desktop/My_Work/Programming/Free_Time/Car/car.png");
-		car = FileUtil.loadImage(path);
+		//To get rid of the first 100 bubbles appearing in the middle of the screen at start
+		for(int i = 0; i < MAX_BUBBLES; i++) 
+		{
+			//create new bubble
+			//making space for the data of the bubble to be stored
+			bubbles[i] = new Bubble();
+			
+			//initializing x values of the ith bubble
+			bubbles[i].x = 1000; 
+			
+			//give bubble random color
+			bubbles[i].colour = random.nextInt(0xffffff);
+			
+			//give bubble random radius between 2 and 8
+			bubbles[i].radius = random.nextInt(6) + 2;
+		}
 	}
 
 	public void onFrame() 
 	{
-		//Make screen white so doesn't leave sprite's trail
+		//clear background, set color black
+		screen.setColour(0);
+		
+		//Make screen black so doesn't leave circle's trail
 		screen.fill();
 		
-		for(int i = 0; i < numCars; i++) 
+		
+		for(int i = 0; i < MAX_BUBBLES; i++) 
 		{
-			//Draw car at mouseclick
-			screen.drawImage(car, (int)xValues[i], (int)yValues[i]);
+			//set bubble to its current color
+			screen.setColour(bubbles[i].colour);
+			
+			//draw circle with radius of current bubble at coord x and y in array
+			screen.drawCircle((int)bubbles[i].x, (int)bubbles[i].y, bubbles[i].radius);
 			
 			//Add movement to y-coord and x-coord
-			yValues[i] += dyValues[i];
-			xValues[i] += dxValues[i];
-						
-			
-			//Make sprite bounce
-			//Check y values, if it hits bottom of screen (y-coord = -168)
-			if(yValues[i] < -168) 
-			{
-				yValues[i] = -168;
-				//Change direction --> change sign of number
-				dyValues[i] = -dyValues[i]*0.8;
-				//x 0.8 because in real life, everytime object bounces off, rebound is lower
-			}
-			
-			//x direction
-			
-			//If it hits left edge, change the sign of movement in x-direction
-			//Movement to left now becomes movement to right
-			if(xValues[i] < -168) 
-			{
-				xValues[i] = -168;
-				//Change direction --> change sign of number
-				dxValues[i] = -dxValues[i]*0.8;
-				//x 0.8 because in real life, everytime object bounces off, rebound is lower
-			}
-			
-			
-			//If it hits right edge, change the sign of movement in x-direction
-			//Movement to right now becomes movement to left
-			if(xValues[i] > 168) 
-			{
-				xValues[i] = 168;
-				//Change direction --> change sign of number
-				dxValues[i] = -dxValues[i]*0.8;
-				//x 0.8 because in real life, everytime object bounces off, rebound is lower
-			}
-			
-			//Decrease y velocity as the rebound force is lower that dropping force, due to gravity
-			dyValues[i] -= 0.5;
+			bubbles[i].x += bubbles[i].dx;
+			bubbles[i].y += bubbles[i].dy;
 		}
-		
-		
 	}
 	
-	//Draw more sprites on mouse click position
-	public void onMouseClick(int x, int y) 
+	//Draw more sprites on mouse movement 
+	public void onMouseMove(int x, int y) 
 	{
+		bubbles[numVal].x = x;
+		bubbles[numVal].y = y;
+		
+		
+		//To get it moving to random positions, we give it random gradients
 		//Initial Speed in x-coord
-		dxValues[numCars] = 10;
-		xValues[numCars] = x;
-		yValues[numCars] = y;
-		numCars += 1;
+		bubbles[numVal].dx = random.nextDouble() * 2 - 1;
+		
+		//Initial Speed in y-coord
+		bubbles[numVal].dy = random.nextDouble() * 2 - 1;
+		
+		//Move onto next value in array
+		numVal += 1;
+		
+		//Array is gonna be full quickly if we use mouseMove, so we need to reset array when full
+		if(numVal == MAX_BUBBLES) 
+		{
+			numVal = 0;
+		}
 	}
+	
+	
 }
 
