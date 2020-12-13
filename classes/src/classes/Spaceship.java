@@ -13,6 +13,7 @@ public class Spaceship {
 	Image fromRight;
 	Image topLeft;
 	Image topRight;
+	Image spaceshipDown;
 	
 	double gradient = 0;
 	
@@ -23,6 +24,7 @@ public class Spaceship {
 		fromRight = FileUtil.loadImage("/Users/nguyenle/Starsfield-spaceship-game-graphics/bottomright.png"); 
 		topLeft = FileUtil.loadImage("/Users/nguyenle/Starsfield-spaceship-game-graphics/topleft.png"); 
 		topRight = FileUtil.loadImage("/Users/nguyenle/Starsfield-spaceship-game-graphics/topright.png"); 
+		spaceshipDown = FileUtil.loadImage("/Users/nguyenle/Starsfield-spaceship-game-graphics/rocketdown.png"); 
 	}
 	
 	
