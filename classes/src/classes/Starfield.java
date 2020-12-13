@@ -35,7 +35,6 @@ public class Starfield extends SimpleApp {
 	int dShipY;
 	
 	
-	
 	public static void main(String[] args) {
 		new Starfield();
 	}
@@ -109,28 +108,48 @@ public class Starfield extends SimpleApp {
 			//÷star.z to add perspective
 			screen.plot((int)(star.x/star.z), (int)(star.y/star.z));
 		}
+		
+		
 		/*
+		 * STILL NEED TO WORK ON HERE
+		 * 
 		//ship moving from bottom left
 		if(dShipX > 0 && dShipY > 0)
 			screen.drawImage(spaceship.fromLeft, shipX, shipY);
+			
 		//from top left
-		if(dShipX > 0 && dShipY < 0)
+		else if(dShipX > 0 && dShipY < 0)
 			screen.drawImage(spaceship.topLeft, shipX, shipY);
+			
 		//from bottom right
-		if(dShipX < 0 && dShipY > 0)
-			screen.drawImage(spaceship.fromRight, shipX, shipY);
-		//from top right
-		if(dShipX < 0 && dShipY < 0)
-			screen.drawImage(spaceship.topRight, shipX, shipY);
-		*/
-		
-		if(dShipX > 0)
-			screen.drawImage(spaceship.fromLeft, shipX, shipY);
-		
-		if(dShipX < 0)
+		else if(dShipX < 0 && dShipY > 0)
 			screen.drawImage(spaceship.fromRight, shipX, shipY);
 			
-				
+		//from top right
+		else if(dShipX < 0 && dShipY < 0)
+			screen.drawImage(spaceship.topRight, shipX, shipY);
+			
+		//ship going straight up
+		else if (dShipX == 0 && dShipY > 0)
+		{
+			screen.drawImage(spaceship.spaceship, shipX, shipY);
+		}
+		
+		//ship going straight down
+		else if(dShipX == 0 && dShipY < 0)
+		{
+			screen.drawImage(spaceship.spaceshipDown,shipX, shipY);
+		}
+		*/
+		
+		
+		if(shipX > 0)
+			screen.drawImage(spaceship.fromLeft, shipX, shipY);
+		
+		if(shipX < 0)
+			screen.drawImage(spaceship.fromRight, shipX, shipY);	
+			
+		
 		for(int i = 0; i < MAX_BUBBLES; i++) 
 		{
 			//set bubble to its current color
