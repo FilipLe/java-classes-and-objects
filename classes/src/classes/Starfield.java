@@ -31,8 +31,7 @@ public class Starfield extends SimpleApp {
 	Spaceship spaceship = new Spaceship();
 	int shipX;
 	int shipY;
-	int dShipX;
-	int dShipY;
+	double gradient;
 	
 	
 	public static void main(String[] args) {
@@ -109,10 +108,16 @@ public class Starfield extends SimpleApp {
 			screen.plot((int)(star.x/star.z), (int)(star.y/star.z));
 		}
 		
+		//WORK IN PROGRESS
 		
 		/*
-		 * STILL NEED TO WORK ON HERE
+		 * We will be using unit circle to do choose which images to display
+		 * If ship falls into this angle from 
 		 * 
+		 * Check spaceship notes.docx
+		 */
+		
+		/*
 		//ship moving from bottom left
 		if(dShipX > 0 && dShipY > 0)
 			screen.drawImage(spaceship.fromLeft, shipX, shipY);
@@ -141,14 +146,13 @@ public class Starfield extends SimpleApp {
 			screen.drawImage(spaceship.spaceshipDown,shipX, shipY);
 		}
 		*/
-		
-		
+		/*
 		if(shipX > 0)
 			screen.drawImage(spaceship.fromLeft, shipX, shipY);
 		
 		if(shipX < 0)
 			screen.drawImage(spaceship.fromRight, shipX, shipY);	
-			
+			*/
 		
 		for(int i = 0; i < MAX_BUBBLES; i++) 
 		{
@@ -166,10 +170,9 @@ public class Starfield extends SimpleApp {
 	
 	public void onMouseMove(int x, int y) 
 	{
-		dShipX = x - shipX;
-		shipX = x;
-		dShipY = y - shipY;
+		shipX = x;	
 		shipY = y;
+		
 		
 		
 		bubbles[numVal].x = x;
