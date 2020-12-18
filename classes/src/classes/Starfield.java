@@ -6,11 +6,6 @@ import java.util.Random;
 import tbs.simpleapp.SimpleApp;
 import util.ColourUtil;
 
-/*
- * Video:
- * https://www.youtube.com/watch?v=ZS-y8aHcM1E 
- */
-
 public class Starfield extends SimpleApp {	
 	Random random = new Random();
 	
